@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spi vs Spi: ELINT Heist - Promo</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Spi%20vs%20Spi%20icon.png" type="image/png">
 
-    <!-- Open Graph Meta Tags for Link Previews -->
     <meta property="og:image" content="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Spi%20vs%20Spi%20icon%20sm.png">
     <meta property="og:image:width" content="256">
     <meta property="og:image:height" content="256">
@@ -13,42 +13,39 @@
     <meta property="og:description" content="Infiltrate, Extract, Dominate! Dive into a clandestine world where the Pi Network powers a global game of espionage.">
     <meta property="og:url" content="https://n3ptun3-dev.github.io/Spi-vs-Spi-promo/">
     <meta property="og:type" content="website">
-
-    <!-- Tailwind CSS for sleek styling -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom font for a slick, modern feel */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden; /* Prevent horizontal scroll due to potential overflow from background */
+            overflow-x: hidden;
         }
-        /* Style for the carousel container to ensure it fits and looks good */
+        
         #carousel-container {
             width: 100%;
-            max-width: 800px; /* Limit max width for desktop */
-            aspect-ratio: 16 / 9; /* Maintain aspect ratio for desktop */
+            max-width: 800px;
+            aspect-ratio: 16 / 9;
             margin: 0 auto;
             position: relative;
-            background-color: #0d1117; /* Dark background for the canvas */
-            border-radius: 1rem; /* Rounded corners */
-            overflow: hidden; /* Hide anything spilling over */
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4); /* Cyan glow around carousel */
-            cursor: grab; /* Indicate draggable */
+            background-color: #0d1117;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+            cursor: grab;
         }
 
-        /* Adjust for mobile: adapt to screen height and aspect ratio */
-        @media (max-width: 768px) { /* Adjust breakpoint as needed */
+        @media (max-width: 768px) {
             #carousel-container {
-                max-width: 90vw; /* Use a percentage of viewport width */
-                max-height: 50vh; /* Limit max height to half viewport height on smaller screens */
-                width: auto; /* Allow width to adjust based on height */
-                aspect-ratio: 4 / 5; /* More portrait aspect ratio for mobile */
+                max-width: 90vw;
+                max-height: 50vh;
+                width: auto;
+                aspect-ratio: 4 / 5;
             }
         }
 
         #carousel-container.grabbing {
-            cursor: grabbing; /* Cursor change when dragging */
+            cursor: grabbing;
         }
         #carousel-canvas {
             display: block;
@@ -68,65 +65,62 @@
             color: #fff;
             font-size: 1.5rem;
             border-radius: 1rem;
-            z-index: 10; /* Ensure it's above the canvas */
+            z-index: 10;
         }
 
-        /* Modal Styles for full-screen image view */
         #image-modal {
-            position: fixed; /* This is key for staying in the viewport */
-            inset: 0; /* Spans the entire viewport */
-            background-color: rgba(0, 0, 0, 0.85); /* Dark translucent background */
-            backdrop-filter: blur(8px); /* Blur effect for background */
-            -webkit-backdrop-filter: blur(8px); /* Safari compatibility */
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 50; /* Ensure it's on top of other content */
-            opacity: 0; /* Start hidden */
-            pointer-events: none; /* Disable interaction when hidden */
-            transition: opacity 0.3s ease-in-out; /* Smooth transition for appearance */
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
         }
-        #image-modal.visible { /* Class to make the modal visible */
+        #image-modal.visible {
             opacity: 1;
-            pointer-events: auto; /* Enable interaction when visible */
+            pointer-events: auto;
         }
         #modal-image {
             max-width: 90vw;
             max-height: 90vh;
-            object-fit: contain; /* Ensure image fits within bounds */
-            border-radius: 0.75rem; /* rounded-lg */
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.6); /* Stronger cyan glow for modal image */
+            object-fit: contain; 
+            border-radius: 0.75rem;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
         }
         #close-modal {
             position: absolute;
-            background-color: rgba(55, 65, 81, 0.8); /* gray-700 with opacity */
-            border: 2px solid rgba(107, 114, 128, 0.8); /* gray-500 with opacity */
+            background-color: rgba(55, 65, 81, 0.8);
+            border: 2px solid rgba(107, 114, 128, 0.8);
             color: white;
-            font-size: 2.5rem; /* Larger X icon */
-            width: 3rem; /* w-12 equivalent */
-            height: 3rem; /* h-12 equivalent */
+            font-size: 2.5rem;
+            width: 3rem;
+            height: 3rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 9999px; /* rounded-full */
+            border-radius: 9999px;
             cursor: pointer;
-            top: 1rem; /* Position from top */
-            right: 1rem; /* Position from right */
+            top: 1rem;
+            right: 1rem;
             transition: background-color 0.2s ease, transform 0.2s ease;
-            text-shadow: 0 0 8px rgba(255,255,255,0.5); /* subtle white glow on X */
-            z-index: 60; /* Higher than modal content */
+            text-shadow: 0 0 8px rgba(255,255,255,0.5);
+            z-index: 60;
         }
         #close-modal:hover {
-            background-color: rgba(75, 85, 99, 0.9); /* gray-600 on hover */
-            transform: scale(1.1); /* Slightly enlarge on hover */
+            background-color: rgba(75, 85, 99, 0.9);
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-100 antialiased">
-    <!-- Main content wrapper with background gradient -->
     <div class="min-h-screen bg-gradient-to-br from-gray-900 to-black flex flex-col items-center overflow-hidden relative">
 
-        <!-- Hero Banner Image section: full width responsive image -->
         <section class="w-full mb-8 relative z-10">
             <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/cyphers%20vs%20shadows.jpg"
                  alt="Cyphers vs Shadows Hero Banner"
@@ -134,7 +128,6 @@
                  onerror="this.onerror=null;this.src='https://placehold.co/1920x400/0d1117/ffffff?text=Spi+vs+Spi+Banner';">
         </section>
 
-        <!-- Header section: responsive text sizing and padding -->
         <header class="text-center mb-16 mt-8 relative z-10 px-4 sm:px-8 w-full">
             <h1 class="text-5xl sm:text-7xl font-extrabold text-blue-400 drop-shadow-lg transition-all duration-300 hover:text-blue-300">
                 Spi vs Spi: <br>
@@ -145,7 +138,6 @@
             </p>
         </header>
 
-        <!-- First text section: descriptive paragraphs with responsive padding -->
         <section class="max-w-4xl mx-auto text-center mb-20 px-4 sm:px-8 relative z-10">
             <p class="text-lg sm:text-xl leading-relaxed mb-8 bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg border border-gray-700">
                 Dive into a clandestine world where the <strong class="text-green-400">Pi Network</strong> powers a global game of espionage.
@@ -158,13 +150,11 @@
             </p>
         </section>
 
-        <!-- Choose Your Path section: responsive layout for faction tiles -->
         <section class="w-full max-w-6xl mx-auto mb-20 relative z-10">
             <h2 class="text-4xl sm:text-5xl font-bold text-center text-emerald-400 mb-12 drop-shadow-lg">
                 Choose Your Path
             </h2>
             <div class="flex flex-col lg:flex-row justify-center items-center gap-12 px-4 sm:px-8">
-                <!-- Cyphers Faction Card -->
                 <div class="relative flex flex-col items-center text-center p-8 bg-gray-800 rounded-2xl shadow-2xl w-full lg:w-1/2 max-w-sm border-4 border-blue-600 transform transition-all duration-300 hover:scale-105 hover:shadow-blue-500/50">
                     <div class="mb-6 drop-shadow-sm">
                         <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/cyphers_emblem.png"
@@ -179,7 +169,6 @@
                         They gather ELINT to expand Pi Network's influence. Think digital architects of power.
                     </p>
                 </div>
-                <!-- Shadows Faction Card -->
                 <div class="relative flex flex-col items-center text-center p-8 bg-gray-800 rounded-2xl shadow-2xl w-full lg:w-1/2 max-w-sm border-4 border-red-600 transform transition-all duration-300 hover:scale-105 hover:shadow-red-500/50">
                     <div class="mb-6 drop-shadow-sm">
                         <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/shadows_emblem.png"
@@ -197,7 +186,6 @@
             </div>
         </section>
 
-        <!-- Tactical Arsenal section: 3D carousel powered by Three.js -->
         <section class="w-full max-w-6xl mx-auto mb-20 relative z-10 px-4 sm:px-8">
             <h2 class="text-4xl sm:text-5xl font-bold text-center text-purple-400 mb-12 drop-shadow-lg">
                 Your Tactical Arsenal
@@ -207,11 +195,9 @@
                 <div class="loading-overlay" id="loading-overlay">Loading Assets...</div>
                 <canvas id="carousel-canvas"></canvas>
             </div>
-            <!-- Displays the name of the currently visible item -->
             <div id="current-item-name" class="text-center text-2xl font-bold text-cyan-400 mt-8 mb-12"></div>
         </section>
 
-        <!-- Ready to Join section: call to action with a vibrant button -->
         <section class="text-center max-w-4xl mx-auto px-4 sm:px-8 relative z-10">
             <h2 class="text-4xl sm:text-5xl font-bold text-green-400 mb-8 drop-shadow-lg">
                 Ready to Join the Heist?
@@ -225,27 +211,23 @@
                                  focus:outline-none focus:ring-4 focus:ring-cyan-500 focus:ring-opacity-75">
                 Discover More!
             </a>
-            <p class="mt-8 text-lg text-gray-400 mb-20"> <!-- Added mb-20 here for more padding -->
+            <p class="mt-8 text-lg text-gray-400 mb-20">
                 Stay tuned for updates and prepare to become a legend in the world of ELINT espionage!
             </p>
         </section>
 
-        <!-- Horizontal Scrolling Screenshots Section -->
         <section class="w-full max-w-6xl mx-auto mb-20 relative z-10 px-4 sm:px-8">
             <h2 class="text-4xl sm:text-5xl font-bold text-center text-teal-400 mb-12 drop-shadow-lg">
                 Early Reconnaissance:<br>In-Game Screenshots
             </h2>
             <div class="flex overflow-x-auto snap-x snap-mandatory py-4 px-2 space-x-6 scrollbar-hide">
-                <!-- Custom CSS to hide scrollbar across browsers -->
                 <style>
-                    /* For Webkit browsers (Chrome, Safari) */
                     .scrollbar-hide::-webkit-scrollbar {
                         display: none;
                     }
-                    /* For IE, Edge and Firefox */
                     .scrollbar-hide {
-                        -ms-overflow-style: none;  /* IE and Edge */
-                        scrollbar-width: none;  /* Firefox */
+                        -ms-overflow-style: none;
+                        scrollbar-width: none;
                     }
                 </style>
                 <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_143220_Pi%20Browser.jpg"
@@ -279,10 +261,8 @@
             </div>
         </section>
 
-        <!-- Background gradient overlay for visual flair -->
         <div class="absolute inset-0 z-0 opacity-20" style="background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.2) 0%, transparent 50%), radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.2) 0%, transparent 50%);"></div>
 
-        <!-- Footer section: copyright and Pi Network promotion -->
         <footer class="mt-20 text-center text-gray-500 text-sm relative z-10 px-4 sm:px-8 w-full">
             <h3 class="text-base sm:text-lg font-semibold text-blue-300 flex items-center justify-center mb-2">
                 Made with ❤️ exclusively for Pi Network
@@ -292,7 +272,7 @@
                 showcasing the power of the <strong class="text-green-400">Pi Network</strong>.
             </p>
             <p class="mt-4 text-xl sm:text-2xl font-bold text-blue-300 flex items-center justify-center">
-                <a href="https://minepi.com/n3ptun3" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-300 hover:text-blue-200 transition-colors duration-200 font-semibold underline"> <!-- Added underline class here -->
+                <a href="https://minepi.com/n3ptun3" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-300 hover:text-blue-200 transition-colors duration-200 font-semibold underline">
                     Join the movement
                     <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Pi%20Network%20icon.png" alt="Pi Network Icon" class="w-8 h-8 ml-2 object-contain">
                 </a>
@@ -305,24 +285,20 @@
         </footer>
     </div>
 
-    <!-- Image Modal for full-screen viewing -->
     <div id="image-modal">
-        <!-- Close button for the modal, positioned absolutely -->
+        
         <button id="close-modal">×</button>
-        <!-- Container for the image and its name -->
+        
         <div class="relative p-4 rounded-lg">
             <img id="modal-image" src="" alt="Full Screen Item" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-xl">
             <div id="modal-item-name" class="text-center text-white text-xl font-semibold mt-4"></div>
         </div>
     </div>
 
-    <!-- Three.js library for 3D rendering -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script>
-        // Ensure the animation loop starts after the window has fully loaded.
         window.onload = function () {
-            // Get DOM elements
             const canvas = document.getElementById('carousel-canvas');
             const container = document.getElementById('carousel-container');
             const currentItemNameElement = document.getElementById('current-item-name');
@@ -332,24 +308,20 @@
             const modalItemName = document.getElementById('modal-item-name');
             const closeModalBtn = document.getElementById('close-modal');
 
-            // --- Three.js Setup Variables ---
             let scene, camera, renderer;
-            let carouselGroup; // Group to hold all carousel items
-            let items = []; // Array to store Three.js mesh objects
+            let carouselGroup;
+            let items = [];
             let textureLoader;
-            const carouselRadius = 4.0; // Increased radius for better spacing
-            const itemWidth = 2.0; // Item width
-            const itemHeight = 2.0; // Item height (square images)
-            const rotationSpeed = 0.0025; // Autoscroll speed, half the previous speed
+            const carouselRadius = 4.0;
+            const itemWidth = 2.0;
+            const itemHeight = 2.0;
+            const rotationSpeed = 0.0025;
 
-            // --- Carousel Interaction Variables ---
             let isDragging = false;
-            let previousClientX = 0; // Renamed from previousMouseX to handle both mouse and touch
-            let autoRotate = true; // Flag to enable/disable autoscroll
+            let previousClientX = 0;
+            let autoRotate = true;
 
-            // Define the images and their names for the carousel
             const imageData = [
-                // Ensure these are raw GitHub content URLs
                 { name: "Feedback Loop L2", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/feedback_loop_l2.jpg" },
                 { name: "Sonic Dampener L2", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/sonic_dampener_l2.jpg" },
                 { name: "Adaptive Shield L2", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/adaptive_shield_l2.jpg" },
@@ -362,7 +334,6 @@
 
             let loadedImagesCount = 0;
 
-            // --- Label Swap Map (used to display different names for items) ---
             const labelSwapMap = {
                 "Feedback Loop L2": "Sonic Pulse Lock L1",
                 "Sonic Pulse Lock L1": "Feedback Loop L2",
@@ -374,83 +345,63 @@
                 "Cypher Lock L8": "Dummy Node L2"
             };
 
-            // --- Initialization Function ---
             function init() {
-                // Scene setup
                 scene = new THREE.Scene();
-                scene.background = new THREE.Color(0x0d1117); // Match container background
+                scene.background = new THREE.Color(0x0d1117);
 
-                // Camera setup
                 camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
-                camera.position.z = carouselRadius + 2; // Position camera to see the carousel
+                camera.position.z = carouselRadius + 2;
 
-                // Renderer setup
                 renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
                 renderer.setSize(container.offsetWidth, container.offsetHeight);
                 renderer.setPixelRatio(window.devicePixelRatio);
 
-                // Add light sources
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.7); // Soft white light
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
                 scene.add(ambientLight);
 
-                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); // Directional light from top-front
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
                 directionalLight.position.set(0, 5, 5);
                 scene.add(directionalLight);
 
-                // Create a group to hold all carousel items for easy rotation
                 carouselGroup = new THREE.Group();
                 scene.add(carouselGroup);
 
                 textureLoader = new THREE.TextureLoader();
 
-                // Load each image and add it to the carousel
                 imageData.forEach((data, index) => {
                     textureLoader.load(
                         data.url,
-                        // On load callback
                         (texture) => {
                             const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
                             const geometry = new THREE.PlaneGeometry(itemWidth, itemHeight);
                             const mesh = new THREE.Mesh(geometry, material);
 
-                            // Flip the image horizontally on the plane
                             mesh.scale.x = -1;
-
-                            // Calculate position in a circle (start with 0 angle at +Z)
-                            // Initial angle is now offset by Math.PI to place the first item at the front (-Z)
+                            
                             const initialAngle = (index / imageData.length) * Math.PI * 2 + Math.PI;
                             mesh.position.x = carouselRadius * Math.sin(initialAngle);
                             mesh.position.z = carouselRadius * Math.cos(initialAngle);
-
-                            // Make the item plane always face the center of the carousel
-                            mesh.lookAt(new THREE.Vector3(0, 0, 0)); // Correctly orientates the plane
-
-                            mesh.userData = { name: data.name, imageUrl: data.url }; // Store name and URL for modal
+                            mesh.lookAt(new THREE.Vector3(0, 0, 0));
+                            mesh.userData = { name: data.name, imageUrl: data.url };
                             items.push(mesh);
                             carouselGroup.add(mesh);
 
                             loadedImagesCount++;
                             if (loadedImagesCount === imageData.length) {
-                                // All items loaded and positioned. Hide loading overlay and start animation.
                                 loadingOverlay.style.display = 'none';
                                 animate();
                             }
                         },
-                        // On progress callback (optional)
                         undefined,
-                        // On error callback
                         (err) => {
                             console.error('An error happened loading a texture:', data.url, err);
-                            // Fallback to a placeholder texture in case of loading error
                             const placeholderTexture = new THREE.TextureLoader().load(
                                 'https://placehold.co/600x400/34495e/ffffff?text=Error',
                                 (tex) => {
                                     const material = new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide });
                                     const geometry = new THREE.PlaneGeometry(itemWidth, itemHeight);
                                     const mesh = new THREE.Mesh(geometry, material);
-                                    // Flip the image horizontally for placeholder too
                                     mesh.scale.x = -1;
-                                    // Initial angle adjusted for placeholder items too
                                     const initialAngle = (index / imageData.length) * Math.PI * 2 + Math.PI;
                                     mesh.position.x = carouselRadius * Math.sin(initialAngle);
                                     mesh.position.z = carouselRadius * Math.cos(initialAngle);
@@ -470,47 +421,39 @@
                     );
                 });
 
-                // --- Event Listeners for Mouse Interaction ---
                 container.addEventListener('mousedown', onMouseDown);
                 container.addEventListener('mousemove', onMouseMove);
                 container.addEventListener('mouseup', onMouseUp);
-                container.addEventListener('mouseleave', onMouseUp); // End drag if mouse leaves container
-                container.addEventListener('click', onCanvasClick, false); // For fullscreen click
-
-                // --- Event Listeners for Touch Interaction ---
-                container.addEventListener('touchstart', onTouchStart, { passive: true }); // passive: true for better scrolling performance
+                container.addEventListener('mouseleave', onMouseUp);
+                container.addEventListener('click', onCanvasClick, false);
+                container.addEventListener('touchstart', onTouchStart, { passive: true });
                 container.addEventListener('touchmove', onTouchMove, { passive: true });
                 container.addEventListener('touchend', onTouchEnd, { passive: true });
-                container.addEventListener('touchcancel', onTouchEnd, { passive: true }); // handle touch leaving screen area
-
-                closeModalBtn.addEventListener('click', closeImageModal); // Close modal button
-
-                // Handle window resizing to keep the canvas responsive
+                container.addEventListener('touchcancel', onTouchEnd, { passive: true });
+                closeModalBtn.addEventListener('click', closeImageModal);
                 window.addEventListener('resize', onWindowResize, false);
             }
 
-            // --- Mouse Interaction Functions ---
             function onMouseDown(event) {
                 isDragging = true;
-                autoRotate = false; // Disable autoscroll
+                autoRotate = false;
                 previousClientX = event.clientX;
-                container.classList.add('grabbing'); // Change cursor style
+                container.classList.add('grabbing');
             }
 
             function onMouseMove(event) {
                 if (!isDragging) return;
                 const deltaX = event.clientX - previousClientX;
-                carouselGroup.rotation.y += deltaX * 0.005; // Adjust sensitivity for rotation
+                carouselGroup.rotation.y += deltaX * 0.005;
                 previousClientX = event.clientX;
             }
 
             function onMouseUp(event) {
                 isDragging = false;
                 autoRotate = true;
-                container.classList.remove('grabbing'); // Restore cursor style
+                container.classList.remove('grabbing');
             }
-
-            // --- Touch Interaction Functions (mirroring mouse functions) ---
+            
             function onTouchStart(event) {
                 if (event.touches.length > 0) {
                     isDragging = true;
@@ -532,19 +475,13 @@
                 autoRotate = true;
                 container.classList.remove('grabbing');
             }
-
-            // --- Canvas Click for Fullscreen Image ---
             function onCanvasClick(event) {
-                // Prevent click on drag end by checking if a drag happened
-                // A small threshold helps differentiate click from accidental drag
                 if (Math.abs(event.clientX - previousClientX) > 5 && isDragging) {
-                    isDragging = false; // Reset to avoid subsequent false positives
                     return;
                 }
 
                 const rect = renderer.domElement.getBoundingClientRect();
                 const mouse = new THREE.Vector2();
-                // Normalize mouse coordinates to (-1 to +1)
                 mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
                 mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
@@ -561,24 +498,20 @@
                 }
             }
 
-            // --- Modal Functions ---
             function openImageModal(imageUrl, itemName) {
                 modalImage.src = imageUrl;
                 modalItemName.textContent = itemName;
-                imageModal.classList.add('visible'); // Use 'visible' class to show modal
-                // Prevent body scrolling when modal is open
+                imageModal.classList.add('visible');
                 document.body.style.overflow = 'hidden';
             }
 
             function closeImageModal() {
-                imageModal.classList.remove('visible'); // Remove 'visible' class to hide modal
-                modalImage.src = ''; // Clear image src to free memory
+                imageModal.classList.remove('visible');
+                modalImage.src = '';
                 modalItemName.textContent = '';
-                // Re-enable body scrolling when modal is closed
-                document.body.style.overflow = ''; // Resets to default
+                document.body.style.overflow = '';
             }
 
-            // --- Responsive Function ---
             function onWindowResize() {
                 const width = container.offsetWidth;
                 const height = container.offsetHeight;
@@ -588,40 +521,31 @@
                 renderer.setSize(width, height);
             }
 
-            // --- Animation Loop ---
             function animate() {
                 requestAnimationFrame(animate);
 
-                // Autoscroll only if not dragging
                 if (autoRotate) {
                     carouselGroup.rotation.y += rotationSpeed;
                 }
 
-                // Determine the currently front-facing item based on closest Z position
                 let currentFrontItem = null;
-                let smallestZ = Infinity; // We want the most negative Z value (closest to camera)
+                let smallestZ = Infinity;
 
                 items.forEach(item => {
-                    // Get the item's world position within the scene
                     const worldPosition = new THREE.Vector3();
                     item.getWorldPosition(worldPosition);
-
-                    // Items at the visual "front" of the carousel (closest to the camera)
-                    // will have the smallest (most negative) Z coordinate.
                     if (worldPosition.z < smallestZ) {
                         smallestZ = worldPosition.z;
                         currentFrontItem = item;
                     }
                 });
 
-                // Apply the label swap based on the user's observation for the front item
                 if (currentFrontItem) {
                     let displayedName = currentFrontItem.userData.name;
                     if (labelSwapMap[displayedName]) {
                         displayedName = labelSwapMap[displayedName];
                     }
 
-                    // Update the display name only if it has changed
                     if (currentItemNameElement.textContent !== displayedName) {
                         currentItemNameElement.textContent = displayedName;
                     }
@@ -630,11 +554,8 @@
                 renderer.render(scene, camera);
             }
 
-            // Start the initialization
             init();
 
-            // Set initial state of the modal to hidden after init
-            // (Controlled by 'visible' class in JS for smooth transitions)
             imageModal.classList.remove('visible');
         };
     </script>
