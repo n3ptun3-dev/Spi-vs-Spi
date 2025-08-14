@@ -1,586 +1,563 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spi vs Spi: ELINT Heist - Promo</title>
-    <link rel="icon" href="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Spi%20vs%20Spi%20icon.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spi vs Spi: ELINT Heist - Promo</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Spi%20vs%20Spi%20icon.png" type="image/png">
 
-    <meta property="og:image" content="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Spi%20vs%20Spi%20icon%20sm.png">
-    <meta property="og:image:width" content="256">
-    <meta property="og:image:height" content="256">
-    <meta property="og:title" content="Spi vs Spi: ELINT Heist - Promo">
-    <meta property="og:description" content="Infiltrate, Extract, Dominate! Dive into a clandestine world where the Pi Network powers a global game of espionage.">
-    <meta property="og:url" content="https://n3ptun3-dev.github.io/Spi-vs-Spi-promo/">
-    <meta property="og:type" content="website">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-        
-        #carousel-container {
-            width: 100%;
-            max-width: 800px;
-            aspect-ratio: 16 / 9;
-            margin: 0 auto;
-            position: relative;
-            background-color: #0d1117;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
-            cursor: grab;
-        }
+    <meta property="og:image" content="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Spi%20vs%20Spi%20icon%20sm.png">
+    <meta property="og:image:width" content="256">
+    <meta property="og:image:height" content="256">
+    <meta property="og:title" content="Spi vs Spi: ELINT Heist - Promo">
+    <meta property="og:description" content="Infiltrate, Extract, Dominate! Dive into a clandestine world where the Pi Network powers a global game of espionage.">
+    <meta property="og:url" content="https://n3ptun3-dev.github.io/Spi-vs-Spi-promo/">
+    <meta property="og:type" content="website">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        #carousel-container {
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 16 / 9;
+            margin: 0 auto;
+            position: relative;
+            background-color: #0d1117;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+            cursor: grab;
+        }
 
-        @media (max-width: 768px) {
-            #carousel-container {
-                max-width: 90vw;
-                max-height: 50vh;
-                width: auto;
-                aspect-ratio: 4 / 5;
-            }
-        }
+        @media (max-width: 768px) {
+            #carousel-container {
+                max-width: 90vw;
+                max-height: 50vh;
+                width: auto;
+                aspect-ratio: 4 / 5;
+            }
+        }
 
-        #carousel-container.grabbing {
-            cursor: grabbing;
-        }
-        #carousel-canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-        .loading-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-size: 1.5rem;
-            border-radius: 1rem;
-            z-index: 10;
-        }
+        #carousel-container.grabbing {
+            cursor: grabbing;
+        }
+        #carousel-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 1.5rem;
+            border-radius: 1rem;
+            z-index: 10;
+        }
 
-        #image-modal {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 50;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease-in-out;
-        }
-        #image-modal.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        #modal-image {
-            max-width: 90vw;
-            max-height: 90vh;
-            object-fit: contain; 
-            border-radius: 0.75rem;
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
-        }
-        #close-modal {
-            position: absolute;
-            background-color: rgba(55, 65, 81, 0.8);
-            border: 2px solid rgba(107, 114, 128, 0.8);
-            color: white;
-            font-size: 2.5rem;
-            width: 3rem;
-            height: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 9999px;
-            cursor: pointer;
-            top: 1rem;
-            right: 1rem;
-            transition: background-color 0.2s ease, transform 0.2s ease;
-            text-shadow: 0 0 8px rgba(255,255,255,0.5);
-            z-index: 60;
-        }
-        #close-modal:hover {
-            background-color: rgba(75, 85, 99, 0.9);
-            transform: scale(1.1);
-        }
-    </style>
+        #image-modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        #image-modal.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #modal-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain; 
+            border-radius: 0.75rem;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+        }
+        #close-modal {
+            position: absolute;
+            background-color: rgba(55, 65, 81, 0.8);
+            border: 2px solid rgba(107, 114, 128, 0.8);
+            color: white;
+            font-size: 2.5rem;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            cursor: pointer;
+            top: 1rem;
+            right: 1rem;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            text-shadow: 0 0 8px rgba(255,255,255,0.5);
+            z-index: 60;
+        }
+        #close-modal:hover {
+            background-color: rgba(75, 85, 99, 0.9);
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 <body class="bg-gray-950 text-gray-100 antialiased">
-    <div class="min-h-screen bg-gradient-to-br from-gray-900 to-black flex flex-col items-center overflow-hidden relative">
+    <div class="min-h-screen bg-gradient-to-br from-gray-900 to-black flex flex-col items-center overflow-hidden relative">
 
-        <section class="w-full mb-8 relative z-10">
-            <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/cyphers%20vs%20shadows.jpg"
-                 alt="Cyphers vs Shadows Hero Banner"
-                 class="w-full h-auto object-cover"
-                 onerror="this.onerror=null;this.src='https://placehold.co/1920x400/0d1117/ffffff?text=Spi+vs+Spi+Banner';">
-        </section>
+        <section class="w-full mb-8 relative z-10">
+            <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/cyphers%20vs%20shadows.jpg"
+                alt="Cyphers vs Shadows Hero Banner"
+                class="w-full h-auto object-cover"
+                onerror="this.onerror=null;this.src='https://placehold.co/1920x400/0d1117/ffffff?text=Spi+vs+Spi+Banner';">
+        </section>
 
-        <header class="text-center mb-16 mt-8 relative z-10 px-4 sm:px-8 w-full">
-            <h1 class="text-5xl sm:text-7xl font-extrabold text-blue-400 drop-shadow-lg transition-all duration-300 hover:text-blue-300">
-                Spi vs Spi: <br>
-                ELINT Heist
-            </h1>
-            <p class="text-xl sm:text-3xl text-gray-300 font-medium mt-4 tracking-wide">
-                Infiltrate, Extract, Dominate!
-            </p>
-        </header>
+        <header class="text-center mb-16 mt-8 relative z-10 px-4 sm:px-8 w-full">
+            <h1 class="text-5xl sm:text-7xl font-extrabold text-blue-400 drop-shadow-lg transition-all duration-300 hover:text-blue-300">
+                Spi vs Spi: <br>
+                ELINT Heist
+            </h1>
+            <p class="text-xl sm:text-3xl text-gray-300 font-medium mt-4 tracking-wide">
+                Infiltrate, Extract, Dominate!
+            </p>
+        </header>
 
-        <section class="max-w-4xl mx-auto text-center mb-20 px-4 sm:px-8 relative z-10">
-            <p class="text-lg sm:text-xl leading-relaxed mb-8 bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg border border-gray-700">
-                Dive into a clandestine world where the <strong class="text-green-400">Pi Network</strong> powers a global game of espionage.
-                Choose your allegiance – the cunning <strong class="text-blue-400">Cyphers</strong> or the shadowy <strong class="text-red-400">Shadows</strong> –
-                and master the art of Electronic Intelligence.
-            </p>
-            <p class="text-lg sm:text-xl leading-relaxed bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg border border-gray-700">
-                Protect your data, infiltrate rivals, and secure your faction's dominance in this thrilling MMO strategy game.
-                Get ready to outwit, outmaneuver, and outlast your opponents!
-            </p>
-        </section>
+        <section class="max-w-4xl mx-auto text-center mb-20 px-4 sm:px-8 relative z-10">
+            <p class="text-lg sm:text-xl leading-relaxed mb-8 bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg border border-gray-700">
+                Dive into a clandestine world where the <strong class="text-green-400">Pi Network</strong> powers a global game of espionage.
+                Choose your allegiance – the cunning <strong class="text-blue-400">Cyphers</strong> or the shadowy <strong class="text-red-400">Shadows</strong> –
+                and master the art of Electronic Intelligence.
+            </p>
+            <p class="text-lg sm:text-xl leading-relaxed bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg border border-gray-700">
+                Protect your data, infiltrate rivals, and secure your faction's dominance in this thrilling MMO strategy game.
+                Get ready to outwit, outmaneuver, and outlast your opponents!
+            </p>
+        </section>
 
-        <section class="w-full max-w-6xl mx-auto mb-20 relative z-10">
-            <h2 class="text-4xl sm:text-5xl font-bold text-center text-emerald-400 mb-12 drop-shadow-lg">
-                Choose Your Path
-            </h2>
-            <div class="flex flex-col lg:flex-row justify-center items-center gap-12 px-4 sm:px-8">
-                <div class="relative flex flex-col items-center text-center p-8 bg-gray-800 rounded-2xl shadow-2xl w-full lg:w-1/2 max-w-sm border-4 border-blue-600 transform transition-all duration-300 hover:scale-105 hover:shadow-blue-500/50">
-                    <div class="mb-6 drop-shadow-sm">
-                        <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/cyphers_emblem.png"
-                             alt="Cypher Faction Logo"
-                             class="w-40 h-40 object-contain mx-auto"
-                             style="filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.7));" /* Blue glow */
-                             onerror="this.onerror=null;this.src='https://placehold.co/160x160/2a66e6/ffffff?text=Cypher+Logo';">
-                    </div>
-                    <h3 class="text-4xl font-extrabold text-blue-300 mb-4 tracking-wide">The Cyphers</h3>
-                    <p class="text-gray-300 text-lg leading-relaxed">
-                        Masters of codebreaking, data analysis, and information manipulation.
-                        They gather ELINT to expand Pi Network's influence. Think digital architects of power.
-                    </p>
-                </div>
-                <div class="relative flex flex-col items-center text-center p-8 bg-gray-800 rounded-2xl shadow-2xl w-full lg:w-1/2 max-w-sm border-4 border-red-600 transform transition-all duration-300 hover:scale-105 hover:shadow-red-500/50">
-                    <div class="mb-6 drop-shadow-sm">
-                        <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/shadows_emblem.png"
-                             alt="Shadows Faction Logo"
-                             class="w-40 h-40 object-contain mx-auto"
-                             style="filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.7));" /* Red glow */
-                             onerror="this.onerror=null;this.src='https://placehold.co/160x160/a32a2a/ffffff?text=Shadows+Logo';">
-                    </div>
-                    <h3 class="text-4xl font-extrabold text-red-300 mb-4 tracking-wide">The Shadows</h3>
-                    <p class="text-gray-300 text-lg leading-relaxed">
-                        Stealthy, resourceful, and masters of infiltration and sabotage.
-                        They steal ELINT and disrupt rival networks. The hidden hand of dominance.
-                    </p>
-                </div>
-            </div>
-        </section>
+        <section class="w-full max-w-6xl mx-auto mb-20 relative z-10">
+            <h2 class="text-4xl sm:text-5xl font-bold text-center text-emerald-400 mb-12 drop-shadow-lg">
+                Choose Your Path
+            </h2>
+            <div class="flex flex-col lg:flex-row justify-center items-center gap-12 px-4 sm:px-8">
+                <div class="relative flex flex-col items-center text-center p-8 bg-gray-800 rounded-2xl shadow-2xl w-full lg:w-1/2 max-w-sm border-4 border-blue-600 transform transition-all duration-300 hover:scale-105 hover:shadow-blue-500/50">
+                    <div class="mb-6 drop-shadow-sm">
+                        <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/cyphers_emblem.png"
+                            alt="Cypher Faction Logo"
+                            class="w-40 h-40 object-contain mx-auto"
+                            style="filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.7));" /* Blue glow */
+                            onerror="this.onerror=null;this.src='https://placehold.co/160x160/2a66e6/ffffff?text=Cypher+Logo';">
+                    </div>
+                    <h3 class="text-4xl font-extrabold text-blue-300 mb-4 tracking-wide">The Cyphers</h3>
+                    <p class="text-gray-300 text-lg leading-relaxed">
+                        Masters of codebreaking, data analysis, and information manipulation.
+                        They gather ELINT to expand Pi Network's influence. Think digital architects of power.
+                    </p>
+                </div>
+                <div class="relative flex flex-col items-center text-center p-8 bg-gray-800 rounded-2xl shadow-2xl w-full lg:w-1/2 max-w-sm border-4 border-red-600 transform transition-all duration-300 hover:scale-105 hover:shadow-red-500/50">
+                    <div class="mb-6 drop-shadow-sm">
+                        <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/shadows_emblem.png"
+                            alt="Shadows Faction Logo"
+                            class="w-40 h-40 object-contain mx-auto"
+                            style="filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.7));" /* Red glow */
+                            onerror="this.onerror=null;this.src='https://placehold.co/160x160/a32a2a/ffffff?text=Shadows+Logo';">
+                    </div>
+                    <h3 class="text-4xl font-extrabold text-red-300 mb-4 tracking-wide">The Shadows</h3>
+                    <p class="text-gray-300 text-lg leading-relaxed">
+                        Stealthy, resourceful, and masters of infiltration and sabotage.
+                        They steal ELINT and disrupt rival networks. The hidden hand of dominance.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-        <section class="w-full max-w-6xl mx-auto mb-20 relative z-10 px-4 sm:px-8">
-            <h2 class="text-4xl sm:text-5xl font-bold text-center text-teal-400 mb-12 drop-shadow-lg">
-                Introducing: The 3D Snake Game!
-            </h2>
-            <div class="relative w-full max-w-4xl mx-auto">
-                <a href="https://d-snake-7a80a.web.app/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Snake%20banner.jpg"
-                         alt="3D Snake Game Banner"
-                         class="w-full h-auto object-cover rounded-2xl shadow-xl transition-transform duration-300 hover:scale-105 transform cursor-pointer"
-                         onerror="this.onerror=null;this.src='https://placehold.co/1920x400/0d1117/ffffff?text=3D+Snake+Banner';">
-                </a>
-                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-2xl">
-                    <div class="text-center">
-                        <p class="text-2xl sm:text-3xl font-bold text-white mb-4">"The classic snake game, now in 3D and from the snake's point of view!"</p>
-                        <a href="https://d-snake-7a80a.web.app/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-extrabold py-3 px-8 rounded-full text-xl shadow-lg
-                                                       hover:from-teal-600 hover:to-cyan-600 transition-all duration-300 ease-in-out transform hover:scale-110">
-                            Try 3D Snake Now!
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section class="w-full max-w-6xl mx-auto mb-20 relative z-10 px-4 sm:px-8">
+            <h2 class="text-4xl sm:text-5xl font-bold text-center text-purple-400 mb-12 drop-shadow-lg">
+                Your Tactical Arsenal
+            </h2>
 
-        <section class="w-full max-w-6xl mx-auto mb-20 relative z-10">
-            <h2 class="text-4xl sm:text-5xl font-bold text-center text-purple-400 mb-12 drop-shadow-lg">
-                Your Tactical Arsenal
-            </h2>
+            <div id="carousel-container">
+                <div class="loading-overlay" id="loading-overlay">Loading Assets...</div>
+                <canvas id="carousel-canvas"></canvas>
+            </div>
+            <div id="current-item-name" class="text-center text-2xl font-bold text-cyan-400 mt-8 mb-12"></div>
+        </section>
 
-            <div id="carousel-container">
-                <div class="loading-overlay" id="loading-overlay">Loading Assets...</div>
-                <canvas id="carousel-canvas"></canvas>
-            </div>
-            <div id="current-item-name" class="text-center text-2xl font-bold text-cyan-400 mt-8 mb-12"></div>
-        </section>
+        <section class="text-center max-w-4xl mx-auto px-4 sm:px-8 relative z-10">
+            <h2 class="text-4xl sm:text-5xl font-bold text-green-400 mb-8 drop-shadow-lg">
+                Ready to Join the Heist?
+            </h2>
+            <p class="text-xl sm:text-2xl text-gray-300 leading-relaxed mb-10 bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg border border-gray-700">
+                Spi vs Spi is in active development, bringing you a revolutionary gaming experience powered by Pi Network.
+                Get ready to embark on your mission, gather ELINT, and claim your place in the global spy game.
+            </p>
+            <a href="#" class="inline-block bg-gradient-to-r from-blue-500 to-green-500 text-white font-extrabold py-5 px-12 rounded-full text-2xl shadow-lg
+                                 hover:from-blue-600 hover:to-green-600 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-cyan-400/70
+                                 focus:outline-none focus:ring-4 focus:ring-cyan-500 focus:ring-opacity-75">
+                Discover More!
+            </a>
+            <p class="mt-8 text-lg text-gray-400 mb-20">
+                Stay tuned for updates and prepare to become a legend in the world of ELINT espionage!
+            </p>
+        </section>
 
-        <section class="text-center max-w-4xl mx-auto px-4 sm:px-8 relative z-10">
-            <h2 class="text-4xl sm:text-5xl font-bold text-green-400 mb-8 drop-shadow-lg">
-                Ready to Join the Heist?
-            </h2>
-            <p class="text-xl sm:text-2xl text-gray-300 leading-relaxed mb-10 bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg border border-gray-700">
-                Spi vs Spi is in active development, bringing you a revolutionary gaming experience powered by Pi Network.
-                Get ready to embark on your mission, gather ELINT, and claim your place in the global spy game. We're on a mission to build something epic, and your support means everything. Head over to the **Pi Brainstorm App** now and cast your vote to help make this vision a reality!
-            </p>
-            <a href="https://brainstorm.pinet.com/project/6845ffb67b7f810043b28ef5" target="_blank" rel="noopener noreferrer" class="inline-block bg-gradient-to-r from-blue-500 to-green-500 text-white font-extrabold py-5 px-12 rounded-full text-2xl shadow-lg
-                                 hover:from-blue-600 hover:to-green-600 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-cyan-400/70
-                                 focus:outline-none focus:ring-4 focus:ring-cyan-500 focus:ring-opacity-75">
-                Show your Support
-            </a>
-            <p class="mt-8 text-lg text-gray-400 mb-20">
-                Stay tuned for updates and prepare to become a legend in the world of ELINT espionage!
-            </p>
-        </section>
+        <section class="w-full max-w-6xl mx-auto mb-20 relative z-10 px-4 sm:px-8">
+            <h2 class="text-4xl sm:text-5xl font-bold text-center text-teal-400 mb-12 drop-shadow-lg">
+                Early Reconnaissance:<br>In-Game Screenshots
+            </h2>
+            <div class="flex overflow-x-auto snap-x snap-mandatory py-4 px-2 space-x-6 scrollbar-hide">
+                <style>
+                    .scrollbar-hide::-webkit-scrollbar {
+                        display: none;
+                    }
+                    .scrollbar-hide {
+                        -ms-overflow-style: none;
+                        scrollbar-width: none;
+                    }
+                </style>
+                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_143220_Pi%20Browser.jpg"
+                    alt="Spi vs Spi Screenshot 1"
+                    class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
+                    onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+1';">
+                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_142940_Pi%20Browser.jpg"
+                    alt="Spi vs Spi Screenshot 2"
+                    class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
+                    onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+2';">
+                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_142910_Pi%20Browser.jpg"
+                    alt="Spi vs Spi Screenshot 3"
+                    class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
+                    onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+3';">
+                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_144227_Pi%20Browser.jpg"
+                    alt="Spi vs Spi Screenshot 4"
+                    class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
+                    onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+4';">
+                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_143008_Pi%20Browser.jpg"
+                    alt="Spi vs Spi Screenshot 5"
+                    class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
+                    onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+5';">
+                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_143123_Pi%20Browser.jpg"
+                    alt="Spi vs Spi Screenshot 6"
+                    class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
+                    onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+6';">
+                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_143102_Pi%20Browser.jpg"
+                    alt="Spi vs Spi Screenshot 7"
+                    class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
+                    onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+7';">
+            </div>
+        </section>
 
-        <section class="w-full max-w-6xl mx-auto mb-20 relative z-10 px-4 sm:px-8">
-            <h2 class="text-4xl sm:text-5xl font-bold text-center text-teal-400 mb-12 drop-shadow-lg">
-                Early Reconnaissance:<br>In-Game Screenshots
-            </h2>
-            <div class="flex overflow-x-auto snap-x snap-mandatory py-4 px-2 space-x-6 scrollbar-hide">
-                <style>
-                    .scrollbar-hide::-webkit-scrollbar {
-                        display: none;
-                    }
-                    .scrollbar-hide {
-                        -ms-overflow-style: none;
-                        scrollbar-width: none;
-                    }
-                </style>
-                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_143220_Pi%20Browser.jpg"
-                     alt="Spi vs Spi Screenshot 1"
-                     class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
-                     onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+1';">
-                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_142940_Pi%20Browser.jpg"
-                     alt="Spi vs Spi Screenshot 2"
-                     class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
-                     onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+2';">
-                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_142910_Pi%20Browser.jpg"
-                     alt="Spi vs Spi Screenshot 3"
-                     class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
-                     onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+3';">
-                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_144227_Pi%20Browser.jpg"
-                     alt="Spi vs Spi Screenshot 4"
-                     class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
-                     onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+4';">
-                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_143008_Pi%20Browser.jpg"
-                     alt="Spi vs Spi Screenshot 5"
-                     class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
-                     onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+5';">
-                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_143123_Pi%20Browser.jpg"
-                     alt="Spi vs Spi Screenshot 6"
-                     class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
-                     onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+6';">
-                <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Screenshot_20250608_143102_Pi%20Browser.jpg"
-                     alt="Spi vs Spi Screenshot 7"
-                     class="flex-shrink-0 h-[80vh] w-auto object-contain rounded-lg shadow-xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 snap-center"
-                     onerror="this.onerror=null;this.src='https://placehold.co/320x192/0d1117/ffffff?text=Screenshot+7';">
-            </div>
-        </section>
+        <div class="absolute inset-0 z-0 opacity-20" style="background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.2) 0%, transparent 50%), radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.2) 0%, transparent 50%);"></div>
 
-        <div class="absolute inset-0 z-0 opacity-20" style="background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.2) 0%, transparent 50%), radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.2) 0%, transparent 50%);"></div>
+        <footer class="mt-20 text-center text-gray-500 text-sm relative z-10 px-4 sm:px-8 w-full">
+            <h3 class="text-base sm:text-lg font-semibold text-blue-300 flex items-center justify-center mb-2">
+                Made with ❤️ exclusively for Pi Network
+            </h3>
+            <p class="text-sm text-gray-400 mb-4 max-w-md mx-auto">
+                Spi vs Spi is a passion project crafted by a fellow Pioneer,
+                showcasing the power of the <strong class="text-green-400">Pi Network</strong>.
+            </p>
+            <p class="mt-4 text-xl sm:text-2xl font-bold text-blue-300 flex items-center justify-center">
+                <a href="https://minepi.com/n3ptun3" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-300 hover:text-blue-200 transition-colors duration-200 font-semibold underline">
+                    Join the movement
+                    <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Pi%20Network%20icon.png" alt="Pi Network Icon" class="w-8 h-8 ml-2 object-contain">
+                </a>
+            </p>
+            <p class="mt-8 text-lg text-gray-400">
+                <a href="privacy-policy.html" class="underline hover:text-blue-300">Privacy Policy</a> |
+                <a href="terms-of-service.html" class="underline hover:text-blue-300">Terms of Service</a>
+            </p>
+            <p class="mt-4 text-gray-400">© 2025 Spi vs Spi. All rights reserved. Powered by Pi Network.</p>
+        </footer>
+    </div>
 
-        <footer class="mt-20 text-center text-gray-500 text-sm relative z-10 px-4 sm:px-8 w-full">
-            <h3 class="text-base sm:text-lg font-semibold text-blue-300 flex items-center justify-center mb-2">
-                Made with ❤️ exclusively for Pi Network
-            </h3>
-            <p class="text-sm text-gray-400 mb-4 max-w-md mx-auto">
-                Spi vs Spi is a passion project crafted by a fellow Pioneer,
-                showcasing the power of the <strong class="text-green-400">Pi Network</strong>.
-            </p>
-            <p class="mt-4 text-xl sm:text-2xl font-bold text-blue-300 flex items-center justify-center">
-                <a href="https://minepi.com/n3ptun3" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-300 hover:text-blue-200 transition-colors duration-200 font-semibold underline">
-                    Join the movement
-                    <img src="https://raw.githubusercontent.com/n3ptun3-dev/assets/refs/heads/main/images/Pi%20Network%20icon.png" alt="Pi Network Icon" class="w-8 h-8 ml-2 object-contain">
-                </a>
-            </p>
-            <p class="mt-8 text-lg text-gray-400">
-                <a href="privacy-policy.html" class="underline hover:text-blue-300">Privacy Policy</a> |
-                <a href="terms-of-service.html" class="underline hover:text-blue-300">Terms of Service</a>
-            </p>
-            <p class="mt-4 text-gray-400">© 2025 Spi vs Spi. All rights reserved. Powered by Pi Network.</p>
-        </footer>
-    </div>
+    <div id="image-modal">
+        
+        <button id="close-modal">×</button>
+        
+        <div class="relative p-4 rounded-lg">
+            <img id="modal-image" src="" alt="Full Screen Item" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-xl">
+            <div id="modal-item-name" class="text-center text-white text-xl font-semibold mt-4"></div>
+        </div>
+    </div>
 
-    <div id="image-modal">
-        
-        <button id="close-modal">×</button>
-        
-        <div class="relative p-4 rounded-lg">
-            <img id="modal-image" src="" alt="Full Screen Item" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-xl">
-            <div id="modal-item-name" class="text-center text-white text-xl font-semibold mt-4"></div>
-        </div>
-    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        window.onload = function () {
+            const canvas = document.getElementById('carousel-canvas');
+            const container = document.getElementById('carousel-container');
+            const currentItemNameElement = document.getElementById('current-item-name');
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const imageModal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalItemName = document.getElementById('modal-item-name');
+            const closeModalBtn = document.getElementById('close-modal');
 
-    <script>
-        window.onload = function () {
-            const canvas = document.getElementById('carousel-canvas');
-            const container = document.getElementById('carousel-container');
-            const currentItemNameElement = document.getElementById('current-item-name');
-            const loadingOverlay = document.getElementById('loading-overlay');
-            const imageModal = document.getElementById('image-modal');
-            const modalImage = document.getElementById('modal-image');
-            const modalItemName = document.getElementById('modal-item-name');
-            const closeModalBtn = document.getElementById('close-modal');
+            let scene, camera, renderer;
+            let carouselGroup;
+            let items = [];
+            let textureLoader;
+            const carouselRadius = 4.0;
+            const itemWidth = 2.0;
+            const itemHeight = 2.0;
+            const rotationSpeed = 0.0025;
 
-            let scene, camera, renderer;
-            let carouselGroup;
-            let items = [];
-            let textureLoader;
-            const carouselRadius = 4.0;
-            const itemWidth = 2.0;
-            const itemHeight = 2.0;
-            const rotationSpeed = 0.0025;
+            let isDragging = false;
+            let previousClientX = 0;
+            let autoRotate = true;
 
-            let isDragging = false;
-            let previousClientX = 0;
-            let autoRotate = true;
+            const imageData = [
+                { name: "Feedback Loop L2", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/feedback_loop_l2.jpg" },
+                { name: "Sonic Dampener L2", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/sonic_dampener_l2.jpg" },
+                { name: "Adaptive Shield L2", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/adaptive_shield_l2.jpg" },
+                { name: "Dummy Node L2", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/dummy_node_l2.jpg" },
+                { name: "Sonic Pulse Lock L1", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/sonic_pulse_lock_l1.jpg" },
+                { name: "Quantum Entanglement Lock L6", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/quantum_entanglement_lock_l6.jpg" },
+                { name: "Reinforced Deadbolt L3", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/reinforced_deadbolt_l3.jpg" },
+                { name: "Cypher Lock L8", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/cypher_lock_l8.jpg" }
+            ];
 
-            const imageData = [
-                { name: "Feedback Loop L2", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/feedback_loop_l2.jpg" },
-                { name: "Sonic Dampener L2", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/sonic_dampener_l2.jpg" },
-                { name: "Adaptive Shield L2", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/adaptive_shield_l2.jpg" },
-                { name: "Dummy Node L2", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/dummy_node_l2.jpg" },
-                { name: "Sonic Pulse Lock L1", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/sonic_pulse_lock_l1.jpg" },
-                { name: "Quantum Entanglement Lock L6", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/quantum_entanglement_lock_l6.jpg" },
-                { name: "Reinforced Deadbolt L3", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/reinforced_deadbolt_l3.jpg" },
-                { name: "Cypher Lock L8", url: "https://raw.githubusercontent.com/n3ptun3-dev/assets/main/images/cypher_lock_l8.jpg" }
-            ];
+            let loadedImagesCount = 0;
 
-            let loadedImagesCount = 0;
+            const labelSwapMap = {
+                "Feedback Loop L2": "Sonic Pulse Lock L1",
+                "Sonic Pulse Lock L1": "Feedback Loop L2",
+                "Sonic Dampener L2": "Quantum Entanglement Lock L6",
+                "Quantum Entanglement Lock L6": "Sonic Dampener L2",
+                "Adaptive Shield L2": "Reinforced Deadbolt L3",
+                "Reinforced Deadbolt L3": "Adaptive Shield L2",
+                "Dummy Node L2": "Cypher Lock L8",
+                "Cypher Lock L8": "Dummy Node L2"
+            };
 
-            const labelSwapMap = {
-                "Feedback Loop L2": "Sonic Pulse Lock L1",
-                "Sonic Pulse Lock L1": "Feedback Loop L2",
-                "Sonic Dampener L2": "Quantum Entanglement Lock L6",
-                "Quantum Entanglement Lock L6": "Sonic Dampener L2",
-                "Adaptive Shield L2": "Reinforced Deadbolt L3",
-                "Reinforced Deadbolt L3": "Adaptive Shield L2",
-                "Dummy Node L2": "Cypher Lock L8",
-                "Cypher Lock L8": "Dummy Node L2"
-            };
+            function init() {
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color(0x0d1117);
 
-            function init() {
-                scene = new THREE.Scene();
-                scene.background = new THREE.Color(0x0d1117);
+                camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
+                camera.position.z = carouselRadius + 2;
 
-                camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
-                camera.position.z = carouselRadius + 2;
+                renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+                renderer.setSize(container.offsetWidth, container.offsetHeight);
+                renderer.setPixelRatio(window.devicePixelRatio);
 
-                renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
-                renderer.setSize(container.offsetWidth, container.offsetHeight);
-                renderer.setPixelRatio(window.devicePixelRatio);
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+                scene.add(ambientLight);
 
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-                scene.add(ambientLight);
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+                directionalLight.position.set(0, 5, 5);
+                scene.add(directionalLight);
 
-                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-                directionalLight.position.set(0, 5, 5);
-                scene.add(directionalLight);
+                carouselGroup = new THREE.Group();
+                scene.add(carouselGroup);
 
-                carouselGroup = new THREE.Group();
-                scene.add(carouselGroup);
+                textureLoader = new THREE.TextureLoader();
 
-                textureLoader = new THREE.TextureLoader();
+                imageData.forEach((data, index) => {
+                    textureLoader.load(
+                        data.url,
+                        (texture) => {
+                            const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+                            const geometry = new THREE.PlaneGeometry(itemWidth, itemHeight);
+                            const mesh = new THREE.Mesh(geometry, material);
 
-                imageData.forEach((data, index) => {
-                    textureLoader.load(
-                        data.url,
-                        (texture) => {
-                            const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
-                            const geometry = new THREE.PlaneGeometry(itemWidth, itemHeight);
-                            const mesh = new THREE.Mesh(geometry, material);
+                            mesh.scale.x = -1;
+                            
+                            const initialAngle = (index / imageData.length) * Math.PI * 2 + Math.PI;
+                            mesh.position.x = carouselRadius * Math.sin(initialAngle);
+                            mesh.position.z = carouselRadius * Math.cos(initialAngle);
+                            mesh.lookAt(new THREE.Vector3(0, 0, 0));
+                            mesh.userData = { name: data.name, imageUrl: data.url };
+                            items.push(mesh);
+                            carouselGroup.add(mesh);
 
-                            mesh.scale.x = -1;
-                            
-                            const initialAngle = (index / imageData.length) * Math.PI * 2 + Math.PI;
-                            mesh.position.x = carouselRadius * Math.sin(initialAngle);
-                            mesh.position.z = carouselRadius * Math.cos(initialAngle);
-                            mesh.lookAt(new THREE.Vector3(0, 0, 0));
-                            mesh.userData = { name: data.name, imageUrl: data.url };
-                            items.push(mesh);
-                            carouselGroup.add(mesh);
+                            loadedImagesCount++;
+                            if (loadedImagesCount === imageData.length) {
+                                loadingOverlay.style.display = 'none';
+                                animate();
+                            }
+                        },
+                        undefined,
+                        (err) => {
+                            console.error('An error happened loading a texture:', data.url, err);
+                            const placeholderTexture = new THREE.TextureLoader().load(
+                                'https://placehold.co/600x400/34495e/ffffff?text=Error',
+                                (tex) => {
+                                    const material = new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide });
+                                    const geometry = new THREE.PlaneGeometry(itemWidth, itemHeight);
+                                    const mesh = new THREE.Mesh(geometry, material);
+                                    mesh.scale.x = -1;
+                                    const initialAngle = (index / imageData.length) * Math.PI * 2 + Math.PI;
+                                    mesh.position.x = carouselRadius * Math.sin(initialAngle);
+                                    mesh.position.z = carouselRadius * Math.cos(initialAngle);
+                                    mesh.lookAt(new THREE.Vector3(0, 0, 0));
+                                    mesh.userData = { name: data.name + " (Error)", imageUrl: 'https://placehold.co/600x400/34495e/ffffff?text=Error' };
+                                    items.push(mesh);
+                                    carouselGroup.add(mesh);
 
-                            loadedImagesCount++;
-                            if (loadedImagesCount === imageData.length) {
-                                loadingOverlay.style.display = 'none';
-                                animate();
-                            }
-                        },
-                        undefined,
-                        (err) => {
-                            console.error('An error happened loading a texture:', data.url, err);
-                            const placeholderTexture = new THREE.TextureLoader().load(
-                                'https://placehold.co/600x400/34495e/ffffff?text=Error',
-                                (tex) => {
-                                    const material = new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide });
-                                    const geometry = new THREE.PlaneGeometry(itemWidth, itemHeight);
-                                    const mesh = new THREE.Mesh(geometry, material);
-                                    mesh.scale.x = -1;
-                                    const initialAngle = (index / imageData.length) * Math.PI * 2 + Math.PI;
-                                    mesh.position.x = carouselRadius * Math.sin(initialAngle);
-                                    mesh.position.z = carouselRadius * Math.cos(initialAngle);
-                                    mesh.lookAt(new THREE.Vector3(0, 0, 0));
-                                    mesh.userData = { name: data.name + " (Error)", imageUrl: 'https://placehold.co/600x400/34495e/ffffff?text=Error' };
-                                    items.push(mesh);
-                                    carouselGroup.add(mesh);
+                                    loadedImagesCount++;
+                                    if (loadedImagesCount === imageData.length) {
+                                        loadingOverlay.style.display = 'none';
+                                        animate();
+                                    }
+                                }
+                            );
+                        }
+                    );
+                });
 
-                                    loadedImagesCount++;
-                                    if (loadedImagesCount === imageData.length) {
-                                        loadingOverlay.style.display = 'none';
-                                        animate();
-                                    }
-                                }
-                            );
-                        }
-                    );
-                });
+                container.addEventListener('mousedown', onMouseDown);
+                container.addEventListener('mousemove', onMouseMove);
+                container.addEventListener('mouseup', onMouseUp);
+                container.addEventListener('mouseleave', onMouseUp);
+                container.addEventListener('click', onCanvasClick, false);
+                container.addEventListener('touchstart', onTouchStart, { passive: true });
+                container.addEventListener('touchmove', onTouchMove, { passive: true });
+                container.addEventListener('touchend', onTouchEnd, { passive: true });
+                container.addEventListener('touchcancel', onTouchEnd, { passive: true });
+                closeModalBtn.addEventListener('click', closeImageModal);
+                window.addEventListener('resize', onWindowResize, false);
+            }
 
-                container.addEventListener('mousedown', onMouseDown);
-                container.addEventListener('mousemove', onMouseMove);
-                container.addEventListener('mouseup', onMouseUp);
-                container.addEventListener('mouseleave', onMouseUp);
-                container.addEventListener('click', onCanvasClick, false);
-                container.addEventListener('touchstart', onTouchStart, { passive: true });
-                container.addEventListener('touchmove', onTouchMove, { passive: true });
-                container.addEventListener('touchend', onTouchEnd, { passive: true });
-                container.addEventListener('touchcancel', onTouchEnd, { passive: true });
-                closeModalBtn.addEventListener('click', closeImageModal);
-                window.addEventListener('resize', onWindowResize, false);
-            }
+            function onMouseDown(event) {
+                isDragging = true;
+                autoRotate = false;
+                previousClientX = event.clientX;
+                container.classList.add('grabbing');
+            }
 
-            function onMouseDown(event) {
-                isDragging = true;
-                autoRotate = false;
-                previousClientX = event.clientX;
-                container.classList.add('grabbing');
-            }
+            function onMouseMove(event) {
+                if (!isDragging) return;
+                const deltaX = event.clientX - previousClientX;
+                carouselGroup.rotation.y += deltaX * 0.005;
+                previousClientX = event.clientX;
+            }
 
-            function onMouseMove(event) {
-                if (!isDragging) return;
-                const deltaX = event.clientX - previousClientX;
-                carouselGroup.rotation.y += deltaX * 0.005;
-                previousClientX = event.clientX;
-            }
+            function onMouseUp(event) {
+                isDragging = false;
+                autoRotate = true;
+                container.classList.remove('grabbing');
+            }
+            
+            function onTouchStart(event) {
+                if (event.touches.length > 0) {
+                    isDragging = true;
+                    autoRotate = false;
+                    previousClientX = event.touches[0].clientX;
+                    container.classList.add('grabbing');
+                }
+            }
 
-            function onMouseUp(event) {
-                isDragging = false;
-                autoRotate = true;
-                container.classList.remove('grabbing');
-            }
-            
-            function onTouchStart(event) {
-                if (event.touches.length > 0) {
-                    isDragging = true;
-                    autoRotate = false;
-                    previousClientX = event.touches[0].clientX;
-                    container.classList.add('grabbing');
-                }
-            }
+            function onTouchMove(event) {
+                if (!isDragging || event.touches.length === 0) return;
+                const deltaX = event.touches[0].clientX - previousClientX;
+                carouselGroup.rotation.y += deltaX * 0.005;
+                previousClientX = event.touches[0].clientX;
+            }
 
-            function onTouchMove(event) {
-                if (!isDragging || event.touches.length === 0) return;
-                const deltaX = event.touches[0].clientX - previousClientX;
-                carouselGroup.rotation.y += deltaX * 0.005;
-                previousClientX = event.touches[0].clientX;
-            }
+            function onTouchEnd(event) {
+                isDragging = false;
+                autoRotate = true;
+                container.classList.remove('grabbing');
+            }
+            function onCanvasClick(event) {
+                if (Math.abs(event.clientX - previousClientX) > 5 && isDragging) {
+                    return;
+                }
 
-            function onTouchEnd(event) {
-                isDragging = false;
-                autoRotate = true;
-                container.classList.remove('grabbing');
-            }
-            function onCanvasClick(event) {
-                if (Math.abs(event.clientX - previousClientX) > 5 && isDragging) {
-                    return;
-                }
+                const rect = renderer.domElement.getBoundingClientRect();
+                const mouse = new THREE.Vector2();
+                mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+                mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-                const rect = renderer.domElement.getBoundingClientRect();
-                const mouse = new THREE.Vector2();
-                mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-                mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+                const raycaster = new THREE.Raycaster();
+                raycaster.setFromCamera(mouse, camera);
 
-                const raycaster = new THREE.Raycaster();
-                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(carouselGroup.children);
 
-                const intersects = raycaster.intersectObjects(carouselGroup.children);
+                if (intersects.length > 0) {
+                    const intersectedObject = intersects[0].object;
+                    if (intersectedObject.userData && intersectedObject.userData.imageUrl) {
+                        openImageModal(intersectedObject.userData.imageUrl, intersectedObject.userData.name);
+                    }
+                }
+            }
 
-                if (intersects.length > 0) {
-                    const intersectedObject = intersects[0].object;
-                    if (intersectedObject.userData && intersectedObject.userData.imageUrl) {
-                        openImageModal(intersectedObject.userData.imageUrl, intersectedObject.userData.name);
-                    }
-                }
-            }
+            function openImageModal(imageUrl, itemName) {
+                modalImage.src = imageUrl;
+                modalItemName.textContent = itemName;
+                imageModal.classList.add('visible');
+                document.body.style.overflow = 'hidden';
+            }
 
-            function openImageModal(imageUrl, itemName) {
-                modalImage.src = imageUrl;
-                modalItemName.textContent = itemName;
-                imageModal.classList.add('visible');
-                document.body.style.overflow = 'hidden';
-            }
+            function closeImageModal() {
+                imageModal.classList.remove('visible');
+                modalImage.src = '';
+                modalItemName.textContent = '';
+                document.body.style.overflow = '';
+            }
 
-            function closeImageModal() {
-                imageModal.classList.remove('visible');
-                modalImage.src = '';
-                modalItemName.textContent = '';
-                document.body.style.overflow = '';
-            }
+            function onWindowResize() {
+                const width = container.offsetWidth;
+                const height = container.offsetHeight;
 
-            function onWindowResize() {
-                const width = container.offsetWidth;
-                const height = container.offsetHeight;
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height);
+            }
 
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-                renderer.setSize(width, height);
-            }
+            function animate() {
+                requestAnimationFrame(animate);
 
-            function animate() {
-                requestAnimationFrame(animate);
+                if (autoRotate) {
+                    carouselGroup.rotation.y += rotationSpeed;
+                }
 
-                if (autoRotate) {
-                    carouselGroup.rotation.y += rotationSpeed;
-                }
+                let currentFrontItem = null;
+                let smallestZ = Infinity;
 
-                let currentFrontItem = null;
-                let smallestZ = Infinity;
+                items.forEach(item => {
+                    const worldPosition = new THREE.Vector3();
+                    item.getWorldPosition(worldPosition);
+                    if (worldPosition.z < smallestZ) {
+                        smallestZ = worldPosition.z;
+                        currentFrontItem = item;
+                    }
+                });
 
-                items.forEach(item => {
-                    const worldPosition = new THREE.Vector3();
-                    item.getWorldPosition(worldPosition);
-                    if (worldPosition.z < smallestZ) {
-                        smallestZ = worldPosition.z;
-                        currentFrontItem = item;
-                    }
-                });
+                if (currentFrontItem) {
+                    let displayedName = currentFrontItem.userData.name;
+                    if (labelSwapMap[displayedName]) {
+                        displayedName = labelSwapMap[displayedName];
+                    }
 
-                if (currentFrontItem) {
-                    let displayedName = currentFrontItem.userData.name;
-                    if (labelSwapMap[displayedName]) {
-                        displayedName = labelSwapMap[displayedName];
-                    }
+                    if (currentItemNameElement.textContent !== displayedName) {
+                        currentItemNameElement.textContent = displayedName;
+                    }
+                }
 
-                    if (currentItemNameElement.textContent !== displayedName) {
-                        currentItemNameElement.textContent = displayedName;
-                    }
-                }
+                renderer.render(scene, camera);
+            }
 
-                renderer.render(scene, camera);
-            }
+            init();
 
-            init();
-
-            imageModal.classList.remove('visible');
-        };
-    </script>
+            imageModal.classList.remove('visible');
+        };
+    </script>
 </body>
 </html>
